@@ -2,10 +2,9 @@ import pandas as pd
 import numpy
 from sklearn import svm
 
-rawData = pd.read_csv(r'C:\Users\abane\Downloads\Sample_Keypoints\Sample_Keypoints\mother_PRACTISE_1_sethiV2.csv',sep=',',header=None)
+rawData = pd.read_csv(r'.\training_data\csv\mother\MOTHER_3_KRISHNA.csv',sep=',',header=0)
 
-rY = rawData[34]
-
+rY = rawData['rightWrist_y']
 
 
 normRawData = (rY - numpy.mean(rY))/(numpy.max(rY-numpy.mean(rY))-numpy.min(rY-numpy.mean(rY)))
@@ -62,15 +61,15 @@ featureMatrixMother = numpy.concatenate((featureMatrixMother, [featureVectorMoth
 featureMatrixMother = numpy.concatenate((featureMatrixMother, [featureVectorMother]),axis=0)
 featureMatrixMother = numpy.concatenate((featureMatrixMother, [featureVectorMother]),axis=0)
 
-featureMatrixNotMother = featureMatrixMother - numpy.random.rand(10,65)
+#featureMatrixNotMother = featureMatrixMother - numpy.random.rand(10,65)
 
-TrainingSamples = numpy.concatenate((featureMatrixMother, featureMatrixNotMother),axis=0)
+#TrainingSamples = numpy.concatenate((featureMatrixMother, featureMatrixNotMother),axis=0)
 
-print(TrainingSamples.shape)
+#print(TrainingSamples.shape)
 
-labelVector = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+#labelVector = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-clf = svm.SVC()
-clf.fit(TrainingSamples,labelVector)
+#clf = svm.SVC()
+#clf.fit(TrainingSamples,labelVector)
 
-print(clf.predict([TrainingSamples[19]]))
+#print(clf.predict([TrainingSamples[19]]))
