@@ -45,7 +45,7 @@ def getFeatureVector(training_feature_data):
     if (len(diffNormRawData) < (max_length - 1)):
         zeros = numpy.zeros(max_length - 1 - len(diffNormRawData))
         diffNormRawData = numpy.append(diffNormRawData, zeros)
-    feature_vector = numpy.append(feature_vector, diffNormRawData)
+    feature_vector = numpy.append(feature_vector, diffNormRawData[0:231])
     
     temp_array = zeroCrossingArray[index[0:5]]
     if (len(temp_array) < 5):
