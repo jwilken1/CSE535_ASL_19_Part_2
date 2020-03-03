@@ -64,23 +64,52 @@ def getFeatureVector(training_feature_data):
 
 # Takes 1 video data and gives you total features Matrix!
 def getFeatureMatrix(request_json):
-    
-    for frame in training_entry:
-    for keypoint in frame['keypoints']:
-        if (keypoint['part'] == 'rightWrist'):
-            #print(keypoint['position']['y'])
-            print (keypoint)
-            #testing_data.append(keypoint['position']['y'])
-    for keypoint in frame['keypoints']:
-        if (keypoint['part'] == 'leftWrist'):
-            print (keypoint)
-    
-    
-    counter = 1
+    rightWrist_y = []
+    rightWrist_x = []
+    leftWrist_y = []
+    leftWrist_x = []
+    leftElbow_x = []
+    leftElbow_y = []
+    rightElbow_x = []
+    rightElbow_y = []
+
+    for frame in request_json:
+        for keypoint in frame['keypoints']:
+            if (keypoint['part'] == 'rightWrist'):
+                rightWrist_y.append(keypoint['position']['y'])
+            if (keypoint['part'] == 'rightWrist'):
+                rightWrist_x.append(keypoint['position']['x'])
+            if (keypoint['part'] == 'leftWrist'):
+                leftWrist_y.append(keypoint['position']['y'])
+            if (keypoint['part'] == 'leftWrist'):
+                leftWrist_x.append(keypoint['position']['x'])
+            if (keypoint['part'] == 'leftElbow'):
+                leftElbow_x.append(keypoint['position']['x'])
+            if (keypoint['part'] == 'leftElbow'):
+                leftElbow_y.append(keypoint['position']['y'])
+            if (keypoint['part'] == 'rightElbow'):
+                rightElbow_x.append(keypoint['position']['x'])
+            if (keypoint['part'] == 'rightElbow'):
+                rightElbow_y.append(keypoint['position']['y'])
+        
     feature_matrix = numpy.array([])
-    for training_feature in training_features:
-        feature_vector = getFeatureVector(raw_data, training_feature)
-        feature_matrix = numpy.append(feature_matrix, feature_vector)
+    feature_vector = getFeatureVector(rightWrist_y)
+    
+    feature_matrix = numpy.append(feature_matrix, feature_vector)
+    feature_vector = getFeatureVector(rightWrist_x)
+    feature_matrix = numpy.append(feature_matrix, feature_vector)
+    feature_vector = getFeatureVector(leftWrist_y)
+    feature_matrix = numpy.append(feature_matrix, feature_vector)
+    feature_vector = getFeatureVector(leftWrist_x)
+    feature_matrix = numpy.append(feature_matrix, feature_vector)
+    feature_vector = getFeatureVector(leftElbow_x)
+    feature_matrix = numpy.append(feature_matrix, feature_vector)
+    feature_vector = getFeatureVector(leftElbow_y)
+    feature_matrix = numpy.append(feature_matrix, feature_vector)
+    feature_vector = getFeatureVector(rightElbow_x)
+    feature_matrix = numpy.append(feature_matrix, feature_vector)
+    feature_vector = getFeatureVector(rightWrist_y)
+    feature_matrix = numpy.append(feature_matrix, feature_vector)
         
     return (feature_matrix)
 
