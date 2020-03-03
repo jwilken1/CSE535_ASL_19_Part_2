@@ -119,10 +119,10 @@ def predict():
     request_json = request.get_json()
 
     # Model 1 (Jane Ivanova)
-    loaded_model_1 = pickle.load(open('models/model_1.pkl', 'rb'))
-    loaded_model_2 = pickle.load(open('models/model_2.pkl', 'rb'))
-    loaded_model_3 = pickle.load(open('models/model_3.pkl', 'rb'))
-    loaded_model_4 = pickle.load(open('models/model_4.pkl', 'rb'))
+    loaded_model_1 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_1.pkl', 'rb'))
+    loaded_model_2 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_2.pkl', 'rb'))
+    loaded_model_3 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_3.pkl', 'rb'))
+    loaded_model_4 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_4.pkl', 'rb'))
     
     feature_matrix = getFeatureMatrix(request_json)
 
