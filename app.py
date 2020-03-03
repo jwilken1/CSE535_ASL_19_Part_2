@@ -1,11 +1,18 @@
 from flask import Flask, request
 import pickle
 import numpy
+import os
 
 app = Flask(__name__)
 
 max_length = 232
 training_features = ['rightWrist_y', 'rightWrist_x', 'leftWrist_y', 'leftWrist_x', 'leftElbow_x', 'leftElbow_y', 'rightElbow_x', 'rightElbow_y']
+
+
+loaded_model_1 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_1.pkl', 'rb'))
+loaded_model_2 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_2.pkl', 'rb'))
+loaded_model_3 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_3.pkl', 'rb'))
+loaded_model_4 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_4.pkl', 'rb'))
 
 # Takes 1 video data set and 1 data identifier and gives you a feature vector!
 def getFeatureVector(training_feature_data):
@@ -117,12 +124,6 @@ def getFeatureMatrix(request_json):
 @app.route('/', methods=['POST'])
 def predict():
     request_json = request.get_json()
-
-    # Model 1 (Jane Ivanova)
-    loaded_model_1 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_1.pkl', 'rb'))
-    loaded_model_2 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_2.pkl', 'rb'))
-    loaded_model_3 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_3.pkl', 'rb'))
-    loaded_model_4 = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/models/model_4.pkl', 'rb'))
     
     feature_matrix = getFeatureMatrix(request_json)
 
@@ -131,8 +132,8 @@ def predict():
     result_3 = loaded_model_3.predict([feature_matrix])
     result_4 = loaded_model_4.predict([feature_matrix])
 
-    print(result_1[0])
-    print(result_2[0])
-    print(result_3[0])
-    print(result_4[0])
+    print(result_1)
+    print(result_2)
+    print(result_3)
+    print(result_4)
     return {'1': result_1[0], '2': result_2[0], '3': result_3[0], '4': result_4[0]}
